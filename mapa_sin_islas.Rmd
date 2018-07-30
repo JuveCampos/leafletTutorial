@@ -10,6 +10,7 @@ output: html_document
 En este ejemplo veremos como visualizar un mapa sin islas en R mediante la librería `R - leaflet`.
 
 ## 1. Librerias.
+Las librerias necesarias para correr este ejemplo son las siguientes: 
 
 ```{r, warning=FALSE, message=FALSE}
 library(leaflet)      # libreria para graficar mapas interactivos
@@ -17,9 +18,12 @@ library(sf)           # manejo de informacion geografica
 library(viridis)      # paletas de colores
 library(RColorBrewer) # mas paletas de colores
 library(dplyr)        # manejo de bases de datos
+library(htmlwidgets)  # para guardar el mapa
 ```
 
 ## 2. Abrimos el archivo shape
+
+Para el manejo de información espacial utilizaremos el paquete `sf`
 
 ```{r, echo=FALSE, warning=FALSE}
 root <- "/Users/admin/Desktop/Shape\ sin\ islas/Sin\ Islas/"
@@ -28,23 +32,12 @@ root <- "/Users/admin/Desktop/Shape\ sin\ islas/Sin\ Islas/"
 ```{r}
 # root <- "la direccion donde esta mi shapefile"
 shape <- st_read(paste0(root, "sin_islas.shp"))
-
-# Creamos las variables 
-
-# 1. Generamos un numero aleatorio para cada estado:
-set.seed(12345)
-shape$numerica <- runif(nrow(shape), min = 0, max = 1)
-
-# 2. En funciona dicho numero aleatorio, le asignamos una categoria
-shape$categorica <- case_when(shape$numerica < 0.25 ~ "Estado feo", 
-                              shape$numerica >= 0.25 & shape$numerica < 0.5 ~ "Estado regular", 
-                              shape$numerica >= 0.5 & shape$numerica < 0.75 ~ "Estado bonito", 
-                              shape$numerica >= 0.75 ~ "Estado hermoso")
-
-
 ```
 
 ## 3. Generamos variables ficticias
+
+Con tal de asignarle un color a los polígonos de los estados de la república crearemos variables ficticias; le generaremos un numero aleatorio a cada estado y una categoría en base a dicho número.
+
 ```{r}
 set.seed(1234)
 
@@ -126,7 +119,7 @@ popup <- paste0(
 
 ## 6. Elaboramos el mapa
 A continuación elaboraremos el mapa usando la libreria `leaflet`.
-```{r}
+```{r, echo = FALSE}
 
 # Funcion para crear el mapa
 leaflet(shape) %>%
@@ -151,13 +144,15 @@ leaflet(shape) %>%
 
 ```
 
+![](/Users/admin/Desktop/img1.png)
+
 ## 7. Mapa multicapa.
 
 Para finalizar, haremos un mapa multicapa con toda la informacion que hemos generado hasta el momento, esto es, que despliegue información de distintas variables al seleccionar estas en el mapa.
 
-```{r}
+```{r, echo = FALSE}
 
-leaflet(shape) %>%
+mapa <- leaflet(shape) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
   addPolygons(color = "#444444" ,
               weight = 1, 
@@ -229,12 +224,19 @@ leaflet(shape) %>%
 
   addLegend(position = "topright", pal = palnumeric, values = ~shape$numerica,
           title = "Suerte del Estado") 
+
+# Imprimir el mapa
+mapa
   
 ```
 
+![](/Users/admin/Desktop/img2.png)
 
+## 8. Guardamos el archivo.
 
+Para guardar el archivo haremos uso de la libreria `htmlwidgets`.
 
-
-
-
+```{r}
+# Gardar el mapa 
+htmlwidgets::saveWidget(mapa, "mapa.html")
+```
