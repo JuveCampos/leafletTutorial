@@ -19,7 +19,7 @@ Los archivos que lo comprenden son los siguientes:
 5. `mapa.html` es el mapa terminado para verse en un navegador web.
 
 
-Cualquier sugerencia acerca de como mejorar este tutorial, o alguna duda que pudiera surgir de él, o por si algo no quedó muy claro, favor de comunicarmelo a jcampos@colmex.mx con toda confianza, recordemos que el chiste es aprender todos juntos. :P 
+Cualquier sugerencia acerca de como mejorar este tutorial, o alguna duda que pudiera surgir de él, o por si algo no quedó muy claro, favor de comunicarmelo a jcampos@colmex.mx con toda confianza; el chiste es aprender todos juntos. :P 
 
 Jorge Juvenal Campos Ferreira
 
