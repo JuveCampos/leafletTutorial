@@ -119,7 +119,7 @@ popup <- paste0(
 
 ## 6. Elaboramos el mapa
 A continuación elaboraremos el mapa usando la libreria `leaflet`.
-```{r, echo = FALSE}
+```{r, eval=FALSE}
 
 # Funcion para crear el mapa
 leaflet(shape) %>%
@@ -144,13 +144,13 @@ leaflet(shape) %>%
 
 ```
 
-![](/Users/admin/Desktop/img1.png)
+![](https://github.com/JuveCampos/leafletTutorial/blob/master/img1.png?raw=true)
 
 ## 7. Mapa multicapa.
 
 Para finalizar, haremos un mapa multicapa con toda la informacion que hemos generado hasta el momento, esto es, que despliegue información de distintas variables al seleccionar estas en el mapa.
 
-```{r, echo = FALSE}
+```{r, eval=FALSE}
 
 mapa <- leaflet(shape) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
@@ -230,13 +230,13 @@ mapa
   
 ```
 
-![](/Users/admin/Desktop/img2.png)
+![](https://github.com/JuveCampos/leafletTutorial/blob/master/img2.png?raw=true)
 
 ## 8. Guardamos el archivo.
 
 Para guardar el archivo haremos uso de la libreria `htmlwidgets`.
 
-```{r}
+```{r, eval=FALSE}
 # Gardar el mapa 
 htmlwidgets::saveWidget(mapa, "mapa.html")
 ```
