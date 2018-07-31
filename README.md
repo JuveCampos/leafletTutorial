@@ -4,7 +4,7 @@ En este repositorio se presenta un pequeño tutorial para poder elaborar mapas i
 
 Los archivos que lo comprenden son los siguientes: 
 
-1. `tutorial.html`:  es el tutorial donde el codigo corre y despliega los mapas de manera interactiva.
+1. `tutorial.html`:  es el tutorial donde el codigo corre y despliega los mapas de manera interactiva. ESE HAY QUE DESCARGARLO!
 
 2. `tutorial.Rmd`:  es el tutorial que se puede ver desde la página web. Para poder correr el código desde una computadora personal necesitas: 
 
