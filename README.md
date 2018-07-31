@@ -21,7 +21,31 @@ Los archivos que lo comprenden son los siguientes:
 
 Cualquier sugerencia acerca de como mejorar este tutorial, o alguna duda que pudiera surgir de él, o por si algo no quedó muy claro, favor de comunicarmelo a jcampos@colmex.mx con toda confianza; el chiste es aprender todos juntos. :P 
 
-Jorge Juvenal Campos Ferreira
+**Jorge Juvenal Campos Ferreira**
+
+Citation:
+
+**Paqueteria `sf`**
+Edzer Pebesma (2017). sf: Simple Features for R. R package version 0.5-4.
+  https://CRAN.R-project.org/package=sf
+
+**Paqueteria `leaflet`**
+Joe Cheng, Bhaskar Karambelkar and Yihui Xie (2018). leaflet: Create Interactive Web Maps with
+  the JavaScript 'Leaflet' Library. R package version 2.0.1.
+  https://CRAN.R-project.org/package=leaflet
+
+**Paqueteria `htmlwidgets`**
+Ramnath Vaidyanathan, Yihui Xie, JJ Allaire, Joe Cheng and Kenton Russell (2017). htmlwidgets:
+  HTML Widgets for R. R package version 0.9. https://CRAN.R-project.org/package=htmlwidgets
+
+**Paqueteria `RColorBrewer`**
+Erich Neuwirth (2014). RColorBrewer: ColorBrewer Palettes. R package version 1.1-2.
+  https://CRAN.R-project.org/package=RColorBrewer
+  
+**Paqueteria `viridis`** 
+Simon Garnier (2017). viridis: Default Color Maps from 'matplotlib'. R package version 0.4.0.
+  https://CRAN.R-project.org/package=viridis
+
 
 
 
