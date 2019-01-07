@@ -1,5 +1,7 @@
 # leafletTutorial
 
+**Para revisar el tutorial de manera detallada revisar http://rpubs.com/Juve_Campos/LeafletTutorial**
+
 En este repositorio se presenta un pequeño tutorial para poder elaborar mapas interactivos mediante la librería `R - Leaflet`.
 
 Los archivos que lo comprenden son los siguientes: 
