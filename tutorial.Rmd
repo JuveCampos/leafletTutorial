@@ -1,15 +1,34 @@
 ---
-title: "MapaSinIslas"
-author: "Juvenal Campos"
-date: "28/7/2018"
-output: html_document
+title: ""
+date: "`r Sys.Date()`"
+output:
+  rmdformats::readthedown:
+    highlight: kate
 ---
+
+
+```{r knitr_init, echo=FALSE, cache=FALSE}
+library(knitr)
+library(rmdformats)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=TRUE,
+               cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
 
 # Ejemplo de Uso
 
-En este ejemplo veremos como visualizar un mapa sin islas en R mediante la librería `R - leaflet`.
+En este ejemplo veremos como visualizar un mapa sin islas en R mediante la libreria `R - leaflet`.
 
-## 1. Librerias.
+# 1. Librerias.
 Las librerias necesarias para correr este ejemplo son las siguientes: 
 
 ```{r, warning=FALSE, message=FALSE}
@@ -21,22 +40,22 @@ library(dplyr)        # manejo de bases de datos
 library(htmlwidgets)  # para guardar el mapa
 ```
 
-## 2. Abrimos el archivo shape
+# 2. Abrimos el archivo shape
 
-Para el manejo de información espacial utilizaremos el paquete `sf`
+Para el manejo de informacion espacial utilizaremos el paquete `sf`
 
 ```{r, echo=FALSE, warning=FALSE}
-root <- "/Users/admin/Desktop/Shape\ sin\ islas/Sin\ Islas/"
+root <- "/Users/admin/Desktop/Proyectos/DataCamp/Basics/leaflet/Shape\ sin\ islas/Sin\ Islas"
 ```
 
 ```{r}
 # root <- "la direccion donde esta mi shapefile"
-shape <- st_read(paste0(root, "sin_islas.shp"))
+shape <- st_read(paste0(root, "/sin_islas.shp"))
 ```
 
-## 3. Generamos variables ficticias
+# 3. Generamos variables ficticias
 
-Con tal de asignarle un color a los polígonos de los estados de la república crearemos variables ficticias; le generaremos un numero aleatorio a cada estado y una categoría en base a dicho número.
+Con tal de asignarle un color a los poligonos de los estados de la republica crearemos variables ficticias; le generaremos un numero aleatorio a cada estado y una categoria en base a dicho numero.
 
 ```{r}
 set.seed(1234)
@@ -49,11 +68,10 @@ shape$categorica <- case_when(shape$numerica < 0.25 ~ "Estado feo",
                               shape$numerica >= 0.25 & shape$numerica < 0.5 ~ "Estado regular", 
                               shape$numerica >= 0.5 & shape$numerica < 0.75 ~ "Estado bonito", 
                               shape$numerica >= 0.75 ~ "Estado hermoso")
-# 
 
 ```
 
-## 4. Generamos las paletas para colorear los mapas
+# 4. Generamos las paletas para colorear los mapas
 
 Las paletas son vectores de colores con los cuales vamos a colorear el mapa. Las funciones que el paquete `Leaflet` provee son las siguientes: 
 
@@ -62,28 +80,28 @@ Las paletas son vectores de colores con los cuales vamos a colorear el mapa. Las
 * `colorNumeric(palette, domain, na.color = "#808080", alpha = FALSE,
   reverse = FALSE)`
 
-Esta función nos permite crear paletas de colores para variables o atributos que tengan valores numericos. Nos generará igualmente una escala de colores contínua.
+Esta funcion nos permite crear paletas de colores para variables o atributos que tengan valores numericos. Nos generara igualmente una escala de colores continua.
 
 ### colorBin()
 
 * `colorBin(palette, domain, bins = 7, pretty = TRUE, na.color = "#808080",
   alpha = FALSE, reverse = FALSE)`
 
-Esta función nos ayuda para crear paletas de colores donde automáticamente separa los valores de la variable numérica en rangos o bins (_botecitos_), generando una escala con valores discretos, en vez de continuos como hacía la función previa.
+Esta funcion nos ayuda para crear paletas de colores donde automaticamente separa los valores de la variable numerica en rangos o bins (_botecitos_), generando una escala con valores discretos, en vez de continuos como hacia la funcion previa.
 
 ### colorQuantile()
 
 * `colorQuantile(palette, domain, n = 4, probs = seq(0, 1, length.out = n + 1),
   na.color = "#808080", alpha = FALSE, reverse = FALSE)`
 
-Esta función nos permite crear paletas de colores donde podemos separar la información en los cuantiles que especifiquemos previamente. Sirve para ver quienes se ubican en las partes inferiores y superiores de una escala numerica y de esta manera emitir juicios sobre la información.
+Esta funcion nos permite crear paletas de colores donde podemos separar la informacion en los cuantiles que especifiquemos previamente. Sirve para ver quienes se ubican en las partes inferiores y superiores de una escala numerica y de esta manera emitir juicios sobre la informacion.
 
 ### colorQuantile()
 
 * `colorFactor(palette, domain, levels = NULL, ordered = FALSE,
   na.color = "#808080", alpha = FALSE, reverse = FALSE)`
   
-Esta función crea paletas de colores mediante el uso de variables categóricas (factores en R), donde asigna un color diferente a cada categoria de información.
+Esta funcion crea paletas de colores mediante el uso de variables categoricas (factores en R), donde asigna un color diferente a cada categoria de informacion.
 
 
 ```{r}
@@ -95,11 +113,11 @@ palfac <- colorFactor("RdBu", domain = shape$categorica)
 
 ```
 
-## 5. Generamos el popup 
+# 5. Generamos el popup 
 
-El `popup` es la ventana que se muestra al hacer click en un poligono del mapa. En este caso, queremos que al hacer click en un estado, se muestren cosas como el área, el numero aleatorio que le tocó y que tan bonito es. 
+El `popup` es la ventana que se muestra al hacer click en un poligono del mapa. En este caso, queremos que al hacer click en un estado, se muestren cosas como el area, el numero aleatorio que le toco y que tan bonito es. 
 
-La parte encerrada con los caracteres `"<b>" y "</b>"` serán mostradas en negritas en el mapa, mientras que al introducir `"<br>"` se hará un corte de la oración. Estos caracteres se les denomina como `html tags` y los presentados aquí son un ejemplo de varios que pueden utilizarse para los mapas de leaflet.
+La parte encerrada con los caracteres `"<b>" y "</b>"` seran mostradas en negritas en el mapa, mientras que al introducir `"<br>"` se hara un corte de la oracion. Estos caracteres se les denomina como `html tags` y los presentados aqui son un ejemplo de varios que pueden utilizarse para los mapas de leaflet.
 
 ```{r}
 
@@ -117,9 +135,10 @@ popup <- paste0(
     
 ```
 
-## 6. Elaboramos el mapa
-A continuación elaboraremos el mapa usando la libreria `leaflet`.
-```{r, eval=FALSE}
+# 6. Elaboramos el mapa
+
+A continuacion elaboraremos el mapa usando la libreria `leaflet`.
+```{r, eval=TRUE}
 
 # Funcion para crear el mapa
 leaflet(shape) %>%
@@ -144,13 +163,12 @@ leaflet(shape) %>%
 
 ```
 
-![](https://github.com/JuveCampos/leafletTutorial/blob/master/img1.png?raw=true)
 
-## 7. Mapa multicapa.
+# 7. Mapa multicapa.
 
-Para finalizar, haremos un mapa multicapa con toda la informacion que hemos generado hasta el momento, esto es, que despliegue información de distintas variables al seleccionar estas en el mapa.
+Para finalizar, haremos un mapa multicapa con toda la informacion que hemos generado hasta el momento, esto es, que despliegue informacion de distintas variables al seleccionar estas en el mapa.
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 
 mapa <- leaflet(shape) %>%
   addProviderTiles("Esri.WorldTerrain") %>%
@@ -230,9 +248,8 @@ mapa
   
 ```
 
-![](https://github.com/JuveCampos/leafletTutorial/blob/master/img2.png?raw=true)
 
-## 8. Guardamos el archivo.
+# 8. Guardamos el archivo.
 
 Para guardar el archivo haremos uso de la libreria `htmlwidgets`.
 
@@ -240,3 +257,4 @@ Para guardar el archivo haremos uso de la libreria `htmlwidgets`.
 # Gardar el mapa 
 htmlwidgets::saveWidget(mapa, "mapa.html")
 ```
+
